@@ -13,10 +13,14 @@ fi
 echo $SOURCE_GS_BUCKET > /workdir/SOURCE_GS_BUCKET.env
 echo $DESTINATION_GS_BUCKET > /workdir/DESTINATION_GS_BUCKET.env
 
+rm -f cron
+touch cron
+
 echo "Setting crontab"
 echo "30 21 * * * /bin/sh /workdir/run.sh >> /workdir/crontab.log 2>> /workdir/crontab.log" >> cron
+
 crontab cron
-rm cron
+
 sh /workdir/run.sh >> /workdir/crontab.log
 /etc/init.d/cron start
 service cron start
