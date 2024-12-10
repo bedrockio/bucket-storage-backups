@@ -8,8 +8,12 @@ cd /workdir
 
 echo $DATE_STR > /workdir/backup.date
 gsutil -m cp -r gs://$SOURCE_GS_BUCKET gs://$DESTINATION_GS_BUCKET
-if [ ! $? -eq 0 ]; then
-    echo "Error copying file to Google Storage!!"
+if [ $? -ne 0 ]; then
+    echo "Error copying file(s) to backup Google storage bucket!!"
     exit 1
 fi
 gsutil cp /workdir/backup.date gs://$DESTINATION_GS_BUCKET
+if [ $? -ne 0 ]; then
+    echo "Error copying backup date marker to Google storage bucket!!"
+    exit 1
+fi
