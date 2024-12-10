@@ -6,8 +6,8 @@ DATE_STR=`date +%Y-%m-%d-%H-%M`
 
 cd /workdir
 
-gsutil cp -r gs://$SOURCE_GS_BUCKET gs://$DESTINATION_GS_BUCKET
 echo $DATE_STR > /workdir/backup.date
+gsutil -m cp -r gs://$SOURCE_GS_BUCKET gs://$DESTINATION_GS_BUCKET
 if [ ! $? -eq 0 ]; then
     echo "Error copying file to Google Storage!!"
     exit 1
